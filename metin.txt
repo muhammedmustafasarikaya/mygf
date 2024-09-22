@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çok Seksi Misin?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(255,175,189,1) 0%, rgba(100,216,255,1) 100%);
+            font-family: 'Dancing Script', cursive;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #ff6f61;
+            font-size: 4em;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff9671;
+            }
+            to {
+                text-shadow: 0 0 20px #ff9671, 0 0 30px #ff6f61;
+            }
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff6f61, #ff9671, #ff9a9e);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #ff9a9e, #ff6f61, #ff9671);
+            transform: scale(1.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        #noButton {
+            position: absolute;
+            animation: move 2s infinite;
+        }
+
+        @keyframes move {
+            0% { left: 0; top: 0; }
+            50% { left: 70px; top: 50px; }
+            100% { left: 0; top: 0; }
+        }
+
+        #noButton:hover {
+            animation: none;
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #ff9a9e 0%, #ff6f61 100%);
+            transform: rotate(45deg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -12px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -12px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            button {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Yavrum, çok seksi misin?</h1>
+    <button id="yesButton" aria-label="Evet butonuna tıklayarak seksi olduğunu onayla">Evet</button>
+    <button id="noButton" aria-label="Hayır butonuna tıklayarak seksi olmadığını belirt">Hayır</button>
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        function moveButton() {
+            let noButton = document.getElementById("noButton");
+            noButton.style.top = Math.random() * 300 + "px";
+            noButton.style.left = Math.random() * 300 + "px";
+        }
+
+        document.getElementById("yesButton").onclick = function () {
+            alert("Kesinlikle yavrum, çok seksisin!");
+
+            let heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 15; i++) {
+                let heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+                heartsContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000); 
+            }
+        };
+    </script>
+</body>
+</html>
